@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Apps</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <main class="main_container">
+        <h1 class="main_container_heading">Contact Apps</h1>
+
+        <section class="add_contact">
+            <h2 class="main_container_subheading">Add New Contact</h2>
+            <div class="container_input">
+                <input class="main_container_input" id="name" type="text" placeholder="Name" />
+                <input class="main_container_input" id="email" type="email" placeholder="Email" />
+                <button class="button_add" id="addButton">Add</button>
+            </div>
+        </section>
+
+        <section class="contact_list">
+            <h2 class="main_container_subheading2">Contact List</h2>
+            <div id="contactList">
+                <div class="contact_item">
+                    <div class="contact_detail">
+                        <img src="https://dummyjson.com/icon/emilys/123" alt="Emily">
+                        <div class="contact_data">
+                            <p class="contact_name">Emily Johnson</p>
+                            <p class="contact_email">emily.johnson@x.dummyjson.com</p>
+                        </div>
+                    </div>
+                    <button class="button_close">x</button>
+                </div>
+                <div class="contact_item">
+                    <div class="contact_detail">
+                        <img src="https://dummyjson.com/icon/michaelw/123" alt="Michael">
+                        <div class="contact_data">
+                            <p class="contact_name">Michael Williams</p>
+                            <p class="contact_email">michael.williams@x.dummyjson.com</p>
+                        </div>
+                    </div>
+                    <button class="button_close">x</button>
+                </div>
+                <div class="contact_item">
+                    <div class="contact_detail">
+                        <img src="https://dummyjson.com/icon/sophiab/123" alt="Sophia">
+                        <div class="contact_data">
+                            <p class="contact_name">Sophia Brown</p>
+                            <p class="contact_email">sophia.brown@x.dummyjson.com</p>
+                        </div>
+                    </div>
+                    <button class="button_close">x</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const addButton = document.getElementById('addButton');
+        const contactList = document.getElementById('contactList');
+
+        function validateEmail(email) {
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            return emailPattern.test(email);
+        }
+
+        addButton.addEventListener('click', function() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            if (name && email) {
+                if (validateEmail(email)) {
+                    const contactItem = document.createElement('div');
+                    contactItem.classList.add('contact_item');
+                    
+                    const contactDetail = document.createElement('div');
+                    contactDetail.classList.add('contact_detail');
+
+                    const img = document.createElement('img');
+                    img.src = "https://dummyjson.com/icon/anon";
+                    img.alt = name;
+
+                    const contactData = document.createElement('div');
+                    contactData.classList.add('contact_data');
+
+                    const contactName = document.createElement('p');
+                    contactName.classList.add('contact_name');
+                    contactName.textContent = name;
+
+                    const contactEmail = document.createElement('p');
+                    contactEmail.classList.add('contact_email');
+                    contactEmail.textContent = email;
+
+                    contactData.appendChild(contactName);
+                    contactData.appendChild(contactEmail);
+                    contactDetail.appendChild(img);
+                    contactDetail.appendChild(contactData);
+
+                    const closeButton = document.createElement('button');
+                    closeButton.classList.add('button_close');
+                    closeButton.textContent = 'x';
+                    closeButton.addEventListener('click', function() {
+                        contactList.removeChild(contactItem);
+                    });
+
+                    contactItem.appendChild(contactDetail);
+                    contactItem.appendChild(closeButton);
+
+                    contactList.appendChild(contactItem);
+
+                    document.getElementById('name').value = '';
+                    document.getElementById('email').value = '';
+                } else {
+                    alert('Please enter a valid email address.');
+                }
+            } else {
+                alert('Please fill in both fields.');
+            }
+        });
+    </script>
+</body>
+</html>
